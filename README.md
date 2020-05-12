@@ -7,26 +7,26 @@ Idea: This mini-project will be used to teach you the optimization issues appare
 
 3) Models
 
-Pizza
-Name
-Size
-Toppings (Many 2 Many with Topping Model)
-Cheese (Foreign Key)
-Price (Decimal)
-Total Price (Nullable Decimal, will be updated in a signal in step 11)
+# Pizza
+- Name
+- Size
+- Toppings (Many 2 Many with Topping Model)
+- Cheese (Foreign Key)
+- Price (Decimal)
+- Total Price (Nullable Decimal, will be updated in a signal in step 11)
 
-Topping
-Name
-Type (Foreign Key to Type)
-Price
+# Topping
+- Name
+- Type (Foreign Key to Type)
+- Price
 
-Cheese
-Name
-is_healthy (boolean)
-Price (normally this wouldn’t cost extra but it is easier for this exercise)
+# Cheese
+- Name
+- is_healthy (boolean)
+- Price (normally this wouldn’t cost extra but it is easier for this exercise)
 
-Type
-Name (Vegetable or Meat, or whatever...)
+# Type
+- Name (Vegetable or Meat, or whatever...)
 
 4) Create a seed method that adds items to Topping and Cheese, and then also have a seed method that seeds built pizzas (this will make testing this much easier for you)
 
