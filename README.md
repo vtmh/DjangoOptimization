@@ -39,15 +39,11 @@ Name (Vegetable or Meat, or whatever...)
 Now let’s mess around with optimization…
 8) Loop over entered pizzas inside a template and follow this pseudocode
 
-
-
-
-
-for pizza in pizzas:  # 1 query is here
-    for topping in pizza.toppings.all: # 1 query is here
-        print(topping.name, topping.price) # 2 queries are here for each topping, this adds up very quickly
-        print(topping.type.name) # more queries here for each topping….
-     print(pizza.cheese.name) # and without optimization another one here...
+    for pizza in pizzas:  # 1 query is here
+        for topping in pizza.toppings.all: # 1 query is here
+            print(topping.name, topping.price) # 2 queries are here for each topping, this adds up very quickly
+            print(topping.type.name) # more queries here for each topping….
+         print(pizza.cheese.name) # and without optimization another one here...
 
 - notice the comments above and look at Django Debug Toolbar to see the issues
 
@@ -55,10 +51,10 @@ for pizza in pizzas:  # 1 query is here
 
 10) After you get prefetch to work, re-filter the queryset, you will see that the prefetching is broken and new queries are made...for example:
 
-for pizza in pizzas:  
-    # if you are prefetched this will not hit the DB anymore
-    for topping in pizza.toppings.all:
-         print(topping.name)
+    for pizza in pizzas:  
+        # if you are prefetched this will not hit the DB anymore
+        for topping in pizza.toppings.all:
+             print(topping.name)
 
     # now watch it break due to new filter, learn why this happens...
     toppings =  pizza.toppings.filter(price > 5.00)
