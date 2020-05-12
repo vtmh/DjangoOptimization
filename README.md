@@ -63,8 +63,8 @@ for pizza in pizzas:
 ```
    
 
-10) Create Model Methods for Pizza that gather the total price of the pizza based on all elements in it.
+11) Create Model Methods for Pizza that gather the total price of the pizza based on all elements in it.
 
-11) Create a presave signal for the pizza model, when the model is saved update the Total Price to hold the value of the price of the pizza + all toppings and cheese
+12) Create a presave signal for the pizza model, when the model is saved update the Total Price to hold the value of the price of the pizza + all toppings and cheese
 
-12) Create a postsave signal for the pizza model, after the model is saved update the Total Price to hold the value of the price of the pizza + all toppings and cheese and then pizza.save() again…notice the strange error you will get with infinite looping. Now you know why our postsave signals only alter alternative models.
+13) Create a postsave signal for the pizza model, after the model is saved update the Total Price to hold the value of the price of the pizza + all toppings and cheese and then pizza.save() again…notice the strange error you will get with infinite looping. Now you know why our postsave signals only alter alternative models.
