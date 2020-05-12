@@ -54,12 +54,11 @@ Now let’s mess around with optimization…
     for pizza in pizzas:  
         # if you are prefetched this will not hit the DB anymore
         for topping in pizza.toppings.all:
+            print(topping.name)
+        # now watch it break due to new filter, learn why this happens...
+        toppings =  pizza.toppings.filter(price > 5.00)
+        for topping in toppings:
              print(topping.name)
-
-    # now watch it break due to new filter, learn why this happens...
-    toppings =  pizza.toppings.filter(price > 5.00)
-    for topping in toppings:
-         print(topping.name)
    
 
 10) Create Model Methods for Pizza that gather the total price of the pizza based on all elements in it.
