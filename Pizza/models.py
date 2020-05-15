@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import m2m_changed
 
 # Create your models here.
 
@@ -39,6 +40,9 @@ class Pizza(models.Model):
         for topping in pizza_toppings:
             print(topping.price)
             calc_pric += topping.price
+        cheeses = self.cheese.all()
+        for cheese in cheeses:
+            calc_pric += cheese.price
         self.total_price = calc_pric
         print('total toppings cost')
         print(calc_pric)
