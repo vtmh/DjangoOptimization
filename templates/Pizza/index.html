@@ -13,38 +13,58 @@
 
 </head>
 <body>
-<main>
+<main style="display:flex;justify-content: center">
 
-    <h1>Stats </h1>
-    <ul>
-        <li>Total Pizzas: {{ pizza.count }} </li>
-    </ul>
+    <section>
+        <h3>Create a pizza</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <h3>Choose topping</h3>
+            <p>name:{{ toppings_form.name }}</p>
+            <p>type:{{ toppings_form.type }}</p>
+{#            <p> Price:{{ toppings_form.price }} </p>#}
+            <h3>Choose cheese</h3>
+            <p>Cheese {{ cheeses_form.name }}</p>
 
-    <h2> Toppings</h2>
-    {% for topping in toppings %}
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <section>
+        <h1>Stats </h1>
         <ul>
-            <li>{{ topping.name }}</li>
-            <li>{{ topping.type.name }}</li>
-            <li>{{ topping.price }}</li>
+            <li>Total Pizzas: {{ pizza.count }} </li>
         </ul>
+    </section>
+
+    <section>
+        <h2> Toppings</h2>
+        {% for topping in toppings %}
+            <ul>
+                <li>{{ topping.name }}</li>
+                <li>{{ topping.type.name }}</li>
+                <li>{{ topping.price }}</li>
+            </ul>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2> Cheeses</h2>
+        {% for cheese in cheeses %}
+            <ul>
+                <li>{{ cheese.name }}</li>
+                <li>{{ cheese.is_healthy }}</li>
+                <li>{{ cheese.price }}</li>
+            </ul>
+        {% endfor %}
+    </section>
+
+<section>
+    <h4>Pizzas</h4>
+
+    {% for za in pizza %}
+        <h2>{{ za.name }}</h2>
     {% endfor %}
-
-    <h2> Cheeses</h2>
-    {% for cheese in cheeses %}
-    <ul>
-        <li>{{ cheese.name }}</li>
-    <li>{{ cheese.is_healthy }}</li>
-    <li>{{ cheese.price }}</li>
-    </ul>
-    {% endfor %}
-
-    <form>
-        <p>name:{{ toppings_form.name }}</p>
-        <p>type:{{ toppings_form.type }}</p>
-{#        <p>Price:{{ toppings_form.price }}></p>#}
-    </form>
-
-
+</section>
 
 </main>
 
