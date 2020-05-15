@@ -14,7 +14,7 @@ class Toppings(models.Model):
 
 class Cheese(models.Model):
     name = models.CharField(max_length=100)
-    is_healthy = models.BooleanField
+    is_healthy = models.BooleanField(default=False)
     price = models.DecimalField(decimal_places=2, max_digits=300)
 
 

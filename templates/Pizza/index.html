@@ -1,39 +1,54 @@
 <!doctype html>
 <html>
 <head>
-<style>
-    main {
-        width:1000px;
-        height:1000px;
-        margin:0 auto;
-        border:1px solid black;
-    }
+    <style>
+        main {
+            width: 1000px;
+            height: 1000px;
+            margin: 0 auto;
+            border: 1px solid black;
+        }
 
-</style>
+    </style>
 
 </head>
 <body>
 <main>
 
     <h1>Stats </h1>
-<ul>
-    <li>Total Pizzas: {{ pizza.count }} </li>
-</ul>
+    <ul>
+        <li>Total Pizzas: {{ pizza.count }} </li>
+    </ul>
 
     <h2> Toppings</h2>
     {% for topping in toppings %}
+        <ul>
+            <li>{{ topping.name }}</li>
+            <li>{{ topping.type.name }}</li>
+            <li>{{ topping.price }}</li>
+        </ul>
+    {% endfor %}
+
+    <h2> Cheeses</h2>
+    {% for cheese in cheeses %}
     <ul>
-        <li>{{ topping.name }}</li>
-    <li>{{ topping.name }}</li>
-    <li>{{ topping.name }}</li>
+        <li>{{ cheese.name }}</li>
+    <li>{{ cheese.is_healthy }}</li>
+    <li>{{ cheese.price }}</li>
     </ul>
     {% endfor %}
+
+    <form>
+        <p>name:{{ toppings_form.name }}</p>
+        <p>type:{{ toppings_form.type }}</p>
+{#        <p>Price:{{ toppings_form.price }}></p>#}
+    </form>
+
+
+
 </main>
 
 </body>
-
-
-
 
 
 </html>
