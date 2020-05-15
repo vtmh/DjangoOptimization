@@ -17,8 +17,17 @@
 
     <h1>Stats </h1>
 <ul>
-    <li>Total Pizzas: </li>
+    <li>Total Pizzas: {{ pizza.count }} </li>
 </ul>
+
+    <h2> Toppings</h2>
+    {% for topping in toppings %}
+    <ul>
+        <li>{{ topping.name }}</li>
+    <li>{{ topping.name }}</li>
+    <li>{{ topping.name }}</li>
+    </ul>
+    {% endfor %}
 </main>
 
 </body>
