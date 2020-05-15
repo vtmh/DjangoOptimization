@@ -40,9 +40,7 @@ class Pizza(models.Model):
         for topping in pizza_toppings:
             print(topping.price)
             calc_pric += topping.price
-        cheeses = self.cheese.all()
-        for cheese in cheeses:
-            calc_pric += cheese.price
+        calc_pric += self.cheese.price
         self.total_price = calc_pric
         print('total toppings cost')
         print(calc_pric)
