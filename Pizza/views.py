@@ -56,6 +56,8 @@ def homepage(request):
             pizza_name = regular_form.cleaned_data['cheese_choice'].name + " pizza"
             size = regular_form.cleaned_data['size']
             topping = regular_form.cleaned_data['topping_type'].name
+            topping2 = regular_form.cleaned_data['topping_type2'].name
+            topping3 = regular_form.cleaned_data['topping_type3'].name
             cheese = regular_form.cleaned_data['cheese_choice'].name
 
             new_pizza = Pizza.objects.create(
@@ -66,6 +68,8 @@ def homepage(request):
                 total_price=0,
             )
             new_pizza.toppings.add(Toppings.objects.get(name=topping))
+            new_pizza.toppings.add(Toppings.objects.get(name=topping2))
+            new_pizza.toppings.add(Toppings.objects.get(name=topping3))
             print("Regular form pizza created")
 
     return render(request, 'Pizza/index.html', data)
@@ -133,6 +137,8 @@ def seed_toppings(request):
 
 def query_testing(request):
     pizzas = Pizza.objects.prefetch_related('toppings')
+    # pizzas = Pizza.objects.all()
+
 
 
     #This makes 28 queries! holy cow (with no optimizations)
@@ -142,15 +148,22 @@ def query_testing(request):
     # pre_fetch related works by having the SQL JOIN be made using Python rather than the database.
     # The database is no longer pinged for each call, just the inital Pizza call
 
-    for pizza in pizzas:  # 1 query is here
-        print(pizza.toppings.all)
-        for topping in pizza.toppings.all():  # 1 query is here
-            print(topping.name, topping.price)  # 2 queries are here for each topping, this adds up very quickly
-            print(topping.type.name)  # more queries here for each topping….
-        print(pizza.cheese.name)  # and without optimization another one here...
+    # for pizza in pizzas:  # 1 query is here
+    #     print(pizza.toppings.all)
+    #     for topping in pizza.toppings.all():  # 1 query is here
+    #         print(topping.name, topping.price)  # 2 queries are here for each topping, this adds up very quickly
+    #         print(topping.type.name)  # more queries here for each topping….
+    #     print(pizza.cheese.name)  # and without optimization another one here...
 
-
-
+    for pizza in pizzas:
+        pizza.total_pizza_price()
+        # if you are prefetched this will not hit the DB anymore
+        for topping in pizza.toppings.all():
+            print(topping.name)
+        # now watch it break due to new filter, learn why this happens...
+        toppings = pizza.toppings.filter(price__lte=1.00)
+        for topping in toppings:
+            print(topping.name)
 
 
     return render(request, 'Pizza/query.html')

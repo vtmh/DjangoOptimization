@@ -51,6 +51,8 @@ class RegularForm(forms.Form):
         super(RegularForm, self).__init__(*args, **kwargs)
 
         self.fields['topping_type'].label_from_instance = self.label_from_instance
+        self.fields['topping_type2'].label_from_instance = self.label_from_instance
+        self.fields['topping_type3'].label_from_instance = self.label_from_instance
         self.fields['cheese_choice'].label_from_instance = self.label_from_instance
 
     @staticmethod
@@ -64,5 +66,7 @@ class RegularForm(forms.Form):
     ]
 
     topping_type = forms.ModelChoiceField(queryset=Toppings.objects.all())
+    topping_type2 = forms.ModelChoiceField(queryset=Toppings.objects.all())
+    topping_type3 = forms.ModelChoiceField(queryset=Toppings.objects.all())
     cheese_choice = forms.ModelChoiceField(queryset=Cheese.objects.all())
     size = forms.ChoiceField(choices=size_choices)

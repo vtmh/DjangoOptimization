@@ -31,3 +31,18 @@ class Pizza(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=300)
     total_price = models.DecimalField(null=True, decimal_places=2, max_digits=300)
 
+
+    def total_pizza_price(self):
+        print(self.total_price)
+        pizza_toppings = self.toppings.all()
+        calc_pric = 0
+        for topping in pizza_toppings:
+            print(topping.price)
+            calc_pric += topping.price
+        self.total_price = calc_pric
+        print('total toppings cost')
+        print(calc_pric)
+
+
+
+
