@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 # Create your views here.
 from Pizza.models import Pizza, Toppings, Type, Cheese
-from Pizza.forms import ToppingsForm, CheesesForm
+from Pizza.forms import ToppingsForm, CheesesForm, RegularForm
 
 
 def homepage(request):
@@ -12,8 +12,8 @@ def homepage(request):
     cheeses = Cheese.objects.all()
 
     toppings_form = ToppingsForm
-
     cheeses_form = CheesesForm
+    regular_form = RegularForm
 
     data = {
         'pizza': pizza,
@@ -21,32 +21,27 @@ def homepage(request):
         'cheeses': cheeses,
         'toppings_form': toppings_form,
         'cheeses_form': cheeses_form,
+        'regular_form': regular_form,
     }
 
     if request.method == "POST":
-        print("hello you submitted a form")
         form_toppings = ToppingsForm(request.POST)
         form_cheeses = CheesesForm(request.POST)
-
-        print(form_toppings)
+        regular_form = RegularForm(request.POST)
 
         if form_toppings.is_valid() and form_cheeses.is_valid():
             print("Form submitted successfully")
             # Create the pizza here
-            # print(form_toppings.cleaned_data)
-            # print('cheese')
             topping = form_toppings.cleaned_data['type'].name
-            print('TOPPING')
-            print(topping)
             cheese = form_cheeses.cleaned_data['name'].name
-            # print(cheese)
 
             pizza_name = form_cheeses.cleaned_data['name'].name + " pizza"
+            #TODO Make this value not hardcoded
             size = "large"
             new_pizza = Pizza.objects.create(
                 name=pizza_name,
-                size="test",
-                # toppings=form_toppings,
+                size=size,
+                # toppings=form_toppings, You can't assign a many to many field during instance creation. You must first create the object.
                 cheese=Cheese.objects.get(name=cheese),
                 price=0,
                 total_price=0,
@@ -54,6 +49,24 @@ def homepage(request):
 
             new_pizza.toppings.add(Toppings.objects.get(name=topping))
             print("Pizza has been created! Yum!")
+
+        if regular_form.is_valid():
+            print("Regular form submitted")
+
+            pizza_name = regular_form.cleaned_data['cheese_choice'].name + " pizza"
+            size = regular_form.cleaned_data['size']
+            topping = regular_form.cleaned_data['topping_type'].name
+            cheese = regular_form.cleaned_data['cheese_choice'].name
+
+            new_pizza = Pizza.objects.create(
+                name=pizza_name,
+                size=size,
+                cheese=Cheese.objects.get(name=cheese),
+                price=0,
+                total_price=0,
+            )
+            new_pizza.toppings.add(Toppings.objects.get(name=topping))
+            print("Regular form pizza created")
 
     return render(request, 'Pizza/index.html', data)
 
@@ -135,5 +148,9 @@ def query_testing(request):
             print(topping.name, topping.price)  # 2 queries are here for each topping, this adds up very quickly
             print(topping.type.name)  # more queries here for each topping….
         print(pizza.cheese.name)  # and without optimization another one here...
+
+
+
+
 
     return render(request, 'Pizza/query.html')

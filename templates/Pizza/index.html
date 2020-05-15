@@ -16,18 +16,24 @@
 <main style="display:flex;justify-content: center">
 
     <section>
-        <h3>Create a pizza</h3>
+        <h3>Create a pizza (model form)</h3>
         <form method="POST">
             {% csrf_token %}
             <h3>Choose topping</h3>
             <p>name:{{ toppings_form.name }}</p>
-            <p>type:{{ toppings_form.type }}</p>
-{#            <p> Price:{{ toppings_form.price }} </p>#}
             <h3>Choose cheese</h3>
             <p>Cheese {{ cheeses_form.name }}</p>
 
             <button type="submit">Submit</button>
         </form>
+
+        <h3>Create a pizza (regular form)</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ regular_form.as_table }}
+            <button type="submit">Submit</button>
+        </form>
+
     </section>
     <section>
         <h1>Stats </h1>

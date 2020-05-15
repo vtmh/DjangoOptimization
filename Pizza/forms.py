@@ -4,6 +4,7 @@ from django import forms
 
 
 class ToppingsForm(ModelForm):
+    ##Pulled  this from stackoverflow - Allows me to add labels onto select values so it doesn't just say object.
     def __init__(self, *args, **kwargs):
         super(ToppingsForm, self).__init__(*args, **kwargs)
 
@@ -14,12 +15,7 @@ class ToppingsForm(ModelForm):
     def label_from_instance(obj):
         return obj.name
 
-    #TODO Make these types generate from toppings model
-    TYPES = [
-        ("1", "Meat"),
-        ("2", "Vegetable"),
 
-    ]
 
     name = forms.ModelChoiceField(queryset=Toppings.objects.all())
     type = forms.ModelChoiceField(queryset=Type.objects.all())
@@ -48,3 +44,25 @@ class CheesesForm(ModelForm):
     class Meta:
         model = Cheese
         fields = ['name', 'is_healthy', 'price']
+
+
+class RegularForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(RegularForm, self).__init__(*args, **kwargs)
+
+        self.fields['topping_type'].label_from_instance = self.label_from_instance
+        self.fields['cheese_choice'].label_from_instance = self.label_from_instance
+
+    @staticmethod
+    def label_from_instance(obj):
+        return obj.name
+
+    size_choices = [
+        ('large', 'large'),
+        ('medium', 'medium'),
+        ('small', 'small'),
+    ]
+
+    topping_type = forms.ModelChoiceField(queryset=Toppings.objects.all())
+    cheese_choice = forms.ModelChoiceField(queryset=Cheese.objects.all())
+    size = forms.ChoiceField(choices=size_choices)
