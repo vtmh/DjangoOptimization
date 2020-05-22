@@ -1,80 +1,62 @@
-<!doctype html>
-<html>
-<head>
-    <style>
-        main {
-            width: 1000px;
-            height: 1000px;
-            margin: 0 auto;
-            border: 1px solid black;
-        }
+{% extends 'Home/base.html' %}
 
-    </style>
+{% block content %}
 
-</head>
-<body>
-<main style="display:flex;justify-content: center">
+        <section>
+            <h3>Create a pizza (model form)</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <h3>Choose topping</h3>
+                <p>name:{{ toppings_form.name }}</p>
+                <h3>Choose cheese</h3>
+                <p>Cheese {{ cheeses_form.name }}</p>
 
-    <section>
-        <h3>Create a pizza (model form)</h3>
-        <form method="POST">
-            {% csrf_token %}
-            <h3>Choose topping</h3>
-            <p>name:{{ toppings_form.name }}</p>
-            <h3>Choose cheese</h3>
-            <p>Cheese {{ cheeses_form.name }}</p>
+                <button type="submit">Submit</button>
+            </form>
 
-            <button type="submit">Submit</button>
-        </form>
+            <h3>Create a pizza (regular form)</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ regular_form.as_table }}
+                <button type="submit">Submit</button>
+            </form>
 
-        <h3>Create a pizza (regular form)</h3>
-        <form method="POST">
-            {% csrf_token %}
-            {{ regular_form.as_table }}
-            <button type="submit">Submit</button>
-        </form>
-
-    </section>
-    <section>
-        <h1>Stats </h1>
-        <ul>
-            <li>Total Pizzas: {{ pizza.count }} </li>
-        </ul>
-    </section>
-
-    <section>
-        <h2> Toppings</h2>
-        {% for topping in toppings %}
+        </section>
+        <section>
+            <h1>Stats </h1>
             <ul>
-                <li>{{ topping.name }}</li>
-                <li>{{ topping.type.name }}</li>
-                <li>{{ topping.price }}</li>
+                <li>Total Pizzas: {{ pizza.count }} </li>
             </ul>
-        {% endfor %}
-    </section>
+        </section>
 
-    <section>
-        <h2> Cheeses</h2>
-        {% for cheese in cheeses %}
-            <ul>
-                <li>{{ cheese.name }}</li>
-                <li>{{ cheese.is_healthy }}</li>
-                <li>{{ cheese.price }}</li>
-            </ul>
-        {% endfor %}
-    </section>
+        <section>
+            <h2> Toppings</h2>
+            {% for topping in toppings %}
+                <ul>
+                    <li>{{ topping.name }}</li>
+                    <li>{{ topping.type.name }}</li>
+                    <li>{{ topping.price }}</li>
+                </ul>
+            {% endfor %}
+        </section>
 
-<section>
-    <h4>Pizzas</h4>
+        <section>
+            <h2> Cheeses</h2>
+            {% for cheese in cheeses %}
+                <ul>
+                    <li>{{ cheese.name }}</li>
+                    <li>{{ cheese.is_healthy }}</li>
+                    <li>{{ cheese.price }}</li>
+                </ul>
+            {% endfor %}
+        </section>
 
-    {% for za in pizza %}
-        <h2>{{ za.name }}</h2>
-    {% endfor %}
-</section>
+        <section>
+            <h4>Pizzas</h4>
 
-</main>
+            {% for za in pizza %}
+                <h2>{{ za.name }}</h2>
+            {% endfor %}
+        </section>
 
-</body>
-
-
-</html>
+{% endblock %}
