@@ -2,4 +2,23 @@
 
     <h1> Middleware </h1>
 
+    <button>Test middleware</button>
+
+    <form method="POST" action="{% url 'add_session' %}">
+    {% csrf_token %}
+        <button> Add session variables</button>
+    </form>
+
+    <form method="POST" action="{% url 'remove_session' %}">
+    {% csrf_token %}
+    <button> Remove session variables</button>
+    </form>
+
+
+    <p>These are your session variables:</p>
+    {% if request.session %}
+    {{ request.session.name }}
+    {% else %}
+    <p>You have no sessions.</p>
+    {% endif %}
 {% endblock %}
