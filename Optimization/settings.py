@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Pizza',
-    'debug_toolbar'
+    'debug_toolbar',
+    'Middleware'
 ]
 
 
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Middleware.middleware.SessionMiddleWare'
 ]
 
 ROOT_URLCONF = 'Optimization.urls'
