@@ -2,8 +2,6 @@
 
     <h1> Middleware </h1>
 
-    <button>Test middleware</button>
-
     <form method="POST" action="{% url 'add_session' %}">
     {% csrf_token %}
         <button> Add session variables</button>

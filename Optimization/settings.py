@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Pizza',
     'debug_toolbar',
-    'Middleware'
+    'Middleware',
+    'Home'
 ]
 
 
