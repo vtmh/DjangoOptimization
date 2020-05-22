@@ -3,6 +3,12 @@
 <div>
     <h2> You must log in</h2>
 
+    <form method="POST">
+    {% csrf_token %}
+    {{ form }}
+
+    </form>
+
 
 </div>
 {% endblock %}
