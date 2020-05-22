@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Pizza.urls') )
+    path('pizza/', include('Pizza.urls')),
+    path('middleware/', include('Middleware.urls')),
+    path('', include('Home.urls'))
+
 ]
 
 if settings.DEBUG:

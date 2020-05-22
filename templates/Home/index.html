@@ -1,10 +1,11 @@
+{% extends 'Home/base.html' %}
 {% block content %}
-
+<div>
     <h2>Choose app</h2>
 
     <ul>
-    <li> <a href="{% url '' %}"> Pizza App - SQL Optimizations </a>  </li>
-    <li> <a href="{% url '' %}"> Custom Middleware </a>  </li>
+    <li> <a href="{% url 'pizza_homepage' %}"> Pizza App - SQL Optimizations </a>  </li>
+    <li> <a href="{% url 'middleware' %}"> Custom Middleware </a>  </li>
     </ul>
-
+</div>
 {% endblock %}
